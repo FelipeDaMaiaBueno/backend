@@ -30,7 +30,12 @@ const File = new mongoose.Schema({
 //no banco de dados
 
 File.virtual('url').get(function(){
-    return `http://localhost:3333/files/${encodeURIComponent(this.path)}`;
+    //define qual será a porta automaticamente
+    //se o ambiente fornecer, senão se usa o localhost
+
+    const url = process.env.URL || 'http://localhost:3333'
+
+    return `${url}/files/${encodeURIComponent(this.path)}`;
 });
 
 
